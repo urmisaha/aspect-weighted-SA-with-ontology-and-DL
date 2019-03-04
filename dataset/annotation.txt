@@ -1,0 +1,103 @@
+There are 5 aspectCategories: food, service, price, ambience and anecdotes/miscellaneous.
+
+For every sentence, annotation needs to be done for overall sentiment polarity.
+Eg.:
+<sentence id="2777">
+    <text>To be completely fair, the only redeeming factor was the food, which was above average, but couldn't make up for all the other deficiencies of Teodora.</text>
+    <aspectTerms>
+        <aspectTerm term="food" polarity="positive" from="57" to="61"/>
+    </aspectTerms>
+    <aspectCategories>
+        <aspectCategory category="food" polarity="positive"/>
+        <aspectCategory category="anecdotes/miscellaneous" polarity="negative"/>
+    </aspectCategories>
+</sentence>
+
+Overall sentiment of this should be negative, and should be added in the form:
+<overallSentiment polarity="negative"/>
+
+We provide a rank list of the 5 aspectCategories, which denotes the importance of the aspects, highest to lowest:
+1. anecdotes/miscellaneous
+2. food
+3. service
+4. price
+5. ambience
+
+In sentences where the review has talked about multiple aspects like food, service, etc and overall sentiment cannot not deciphered easily, the above mentioned list is considered to calculate the overall sentiment of the sentecnce.
+Eg. 1:
+<sentence id="3534">
+    <text>All the money went into the interior decoration, none of it went to the chefs.</text>
+    <aspectTerms>
+        <aspectTerm term="interior decoration" polarity="positive" from="28" to="47"/>
+        <aspectTerm term="chefs" polarity="negative" from="72" to="77"/>
+    </aspectTerms>
+    <aspectCategories>
+        <aspectCategory category="ambience" polarity="positive"/>
+        <aspectCategory category="food" polarity="negative"/>
+    </aspectCategories>
+</sentence>
+
+Since food is more important than ambience, overall sentiment should be negative.
+
+Annotated:
+<sentence id="3534">
+    <text>All the money went into the interior decoration, none of it went to the chefs.</text>
+    <aspectTerms>
+        <aspectTerm term="interior decoration" polarity="positive" from="28" to="47"/>
+        <aspectTerm term="chefs" polarity="negative" from="72" to="77"/>
+    </aspectTerms>
+    <aspectCategories>
+        <aspectCategory category="ambience" polarity="positive"/>
+        <aspectCategory category="food" polarity="negative"/>
+    </aspectCategories>
+    <overallSentiment polarity="negative"/>
+</sentence>
+
+Eg. 2:
+<sentence id="425">
+    <text>The price is reasonable although the service is poor.</text>
+    <aspectTerms>
+        <aspectTerm term="price" polarity="positive" from="4" to="9"/>
+        <aspectTerm term="service" polarity="negative" from="37" to="44"/>
+    </aspectTerms>
+    <aspectCategories>
+        <aspectCategory category="service" polarity="negative"/>
+        <aspectCategory category="price" polarity="positive"/>
+    </aspectCategories>
+</sentence>
+
+Since service is at a higher rank than price, overall sentiment should be negative.
+
+Annotated:
+<sentence id="425">
+    <text>The price is reasonable although the service is poor.</text>
+    <aspectTerms>
+        <aspectTerm term="price" polarity="positive" from="4" to="9"/>
+        <aspectTerm term="service" polarity="negative" from="37" to="44"/>
+    </aspectTerms>
+    <aspectCategories>
+        <aspectCategory category="service" polarity="negative"/>
+        <aspectCategory category="price" polarity="positive"/>
+    </aspectCategories>
+    <overallSentiment polarity="negative"/>
+</sentence>
+
+Eg. 3:
+<sentence id="825">
+    <text>Pricey, but worth a try, at least once.</text>
+    <aspectCategories>
+        <aspectCategory category="price" polarity="negative"/>
+        <aspectCategory category="anecdotes/miscellaneous" polarity="positive"/>
+    </aspectCategories>
+</sentence>
+
+Since anecdotes/miscellaneous is at a higher rank than price, overall sentiment should be positive.
+
+<sentence id="825">
+    <text>Pricey, but worth a try, at least once.</text>
+    <aspectCategories>
+        <aspectCategory category="price" polarity="negative"/>
+        <aspectCategory category="anecdotes/miscellaneous" polarity="positive"/>
+    </aspectCategories>
+    <overallSentiment polarity="positive"/>
+</sentence>
