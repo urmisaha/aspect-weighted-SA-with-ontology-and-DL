@@ -40,13 +40,13 @@ df_minority = dataframe[dataframe['sentiment']==0]
 
 df_majority_upsampled = resample(df_majority, 
                                  replace=True,     # sample with replacement
-                                 n_samples=7000,   # to match majority class
+                                 n_samples=500,   # to match majority class
                                  random_state=123) # reproducible results
 
 
 df_minority_upsampled = resample(df_minority, 
                                  replace=True,     # sample with replacement
-                                 n_samples=1000,   # to match majority class
+                                 n_samples=500,   # to match majority class
                                  random_state=123) # reproducible results
 
 dataframe = pandas.concat([df_majority_upsampled, df_minority_upsampled])
@@ -66,9 +66,10 @@ Y_test = np_utils.to_categorical(Y_test)
 X_train_reviews = process_reviews(X_train)
 X_test_reviews = process_reviews(X_test)
 
+WV_DIM = 200
 
 # Word Embeddings
-embedding_model_train = Word2Vec(X_train_reviews, min_count=1, size=20)
+embedding_model_train = Word2Vec(X_train_reviews, min_count=1, size=WV_DIM)
 # print (embedding_model_train)         # Word2Vec(vocab=1881, size=100, alpha=0.025)
 
 word_vectors_train = embedding_model_train.wv
@@ -77,7 +78,6 @@ word_vectors_train = embedding_model_train.wv
 MAX_NB_WORDS = len(word_vectors_train.vocab)
 # print("MAX_NB_WORDS:", MAX_NB_WORDS)  # 1881
 
-WV_DIM = 20
 nb_words = min(MAX_NB_WORDS, len(word_vectors_train.vocab))
 # print("nb_words:", nb_words)          # 1881
 
@@ -96,7 +96,7 @@ for word in words:
 
 
 # Mapping words of sentences to unique numbers  
-MAX_SEQUENCE_LENGTH = 40
+MAX_SEQUENCE_LENGTH = 50
 
 # creates a dictionary with index for each unique word in dataset. This index is used instead of words as input
 word_index = {t[0]: i for i,t in enumerate(vocab.most_common(MAX_NB_WORDS))}

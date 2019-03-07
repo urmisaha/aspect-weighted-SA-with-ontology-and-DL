@@ -13,12 +13,17 @@ print(dataframe[0:5])
 df_majority = dataframe[dataframe['sentiment']==1]
 df_minority = dataframe[dataframe['sentiment']==0]
 
-df_minority_upsampled = resample(df_minority, 
+df_majority_upsampled = resample(df_majority, 
                                  replace=True,     # sample with replacement
-                                 n_samples=277,    # to match majority class
+                                 n_samples=500,   # to match majority class
                                  random_state=123) # reproducible results
 
-dataframe = pandas.concat([df_majority, df_minority_upsampled])
+df_minority_upsampled = resample(df_minority, 
+                                 replace=True,     # sample with replacement
+                                 n_samples=500,   # to match majority class
+                                 random_state=123) # reproducible results
+
+dataframe = pandas.concat([df_majority_upsampled, df_minority_upsampled])
 
 dataset = dataframe.values
 X_train = dataset[0:,0]
@@ -31,7 +36,7 @@ i=0
 f_train = open('train_feature_vector.txt', 'w')
 for sentence, label in zip(X_train, Y_train):
     word_embeddings = []
-    sent_emb = Word2Vec(sentence, min_count=1, size=20)
+    sent_emb = Word2Vec(sentence, min_count=1, size=200)
     for word in sent_emb.wv.vocab:
         word_embeddings.append(sent_emb[word])
     emb_val = np.sum(word_embeddings, axis=0)/len(sent_emb.wv.vocab)
@@ -55,7 +60,7 @@ i=0
 f_test = open('test_feature_vector.txt', 'w')
 for sentence, label in zip(X_test, Y_test):
     word_embeddings = []
-    sent_emb = Word2Vec(sentence, min_count=1, size=20)
+    sent_emb = Word2Vec(sentence, min_count=1, size=200)
     for word in sent_emb.wv.vocab:
         word_embeddings.append(sent_emb[word])
     emb_val = np.sum(word_embeddings, axis=0)/len(sent_emb.wv.vocab)
@@ -92,6 +97,11 @@ clf.fit(X_train, y_train)
 pickle.dump(clf, open('svm.model.pkl', 'wb'))
 
 predicted_labels = clf.predict(X_test)
+
+print("predicted_labels: ")
+print(predicted_labels)
+
+print("precision_recall_fscore_support: ")
 print(precision_recall_fscore_support(y_test, predicted_labels, average=None))
 with open('predicted_labels.txt', 'w+') as f:
     for i in range(len(predicted_labels)):
