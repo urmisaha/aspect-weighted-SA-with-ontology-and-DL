@@ -448,7 +448,7 @@
 
         </aspectCategories>
 
-        <overallSentiment polarity="begative"/>
+        <overallSentiment polarity="negative"/>
 
     </sentence>
 
@@ -552,29 +552,16 @@
 
 
     <sentence id="3534">
-
         <text>All the money went into the interior decoration, none of it went to the chefs.</text>
-
-
         <aspectTerms>
-
             <aspectTerm to="47" from="28" polarity="positive" term="interior decoration"/>
-
             <aspectTerm to="77" from="72" polarity="negative" term="chefs"/>
-
         </aspectTerms>
-
-
         <aspectCategories>
-
             <aspectCategory polarity="positive" category="ambience"/>
-
             <aspectCategory polarity="negative" category="food"/>
-
         </aspectCategories>
-
         <overallSentiment polarity="negative"/>
-
     </sentence>
 
 

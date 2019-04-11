@@ -1,3 +1,13 @@
+'''
+Code for converting xml data to csv dataset.
+Code for calculating statistics of the dataset:
+    1. overall counts
+    2. aspect wise counts
+Code for creating conditional probability table with aspect weights i.e.
+    i)  finding the number of matches between an aspect sentiment and overall sentiment
+    ii) storing the matches as aspect weights after normalization
+'''
+
 import xmltodict, json
 import numpy as np
 
